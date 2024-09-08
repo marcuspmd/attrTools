@@ -1,0 +1,27 @@
+{
+    "name": "marcusp/attr_tools",
+    "type": "library",
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+		"yidas/codeigniter-phpunit": "^1.1",
+		"fakerphp/faker": "^1.14",
+		"squizlabs/php_codesniffer": "^3.6",
+		"mockery/mockery": "^1.5",
+		"phpstan/phpstan": "^1.8",
+		"friendsofphp/php-cs-fixer": "^3.34",
+		"phpmd/phpmd": "^2.13"
+	},
+    "autoload": {
+        "psr-4": {
+            "Marcuspmd\\AttrTools\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Marcus Paulo M Dias",
+            "email": "marcusmazzon@gmail.com"
+        }
+    ]
+}
