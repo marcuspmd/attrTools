@@ -15,6 +15,7 @@
          defaultTestSuite="default"
          testdox="true"
          testdoxSummary="true"
+         colors="true"
          >
     <testsuites>
         <testsuite name="default">

@@ -20,7 +20,7 @@ final class DateRangeValidator extends BaseValidator implements Validator
         parent::__construct($field, $message, $nullable);
     }
 
-    public function validate($value): bool
+    public function isValid($value): bool
     {
         if ($this->nullable && $value === null) {
             return true;

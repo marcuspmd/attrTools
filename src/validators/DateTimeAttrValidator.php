@@ -16,7 +16,7 @@ use DateTime;
  *  #[DateTimeAttrValidator(min: null, max: new DateTime('2023-12-31'), nullable: true)]
  */
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
-final class DatetimeAttrValidator extends BaseValidator implements Validator
+final class DateTimeAttrValidator extends BaseValidator implements Validator
 {
     private ?DateTime $resolvedMin = null;
     private ?DateTime $resolvedMax = null;
