@@ -50,6 +50,10 @@ final class AttrValidator implements Validator
                         $validationAttribute->field = $propertyName;
                     }
 
+                    if (property_exists($validationAttribute, 'context')) {
+                        $validationAttribute->context = $target;
+                    }
+
                     if ($validationAttribute->isValid($reflectionProperty->getValue($target)) == false) {
                         $this->errors[] = $validationAttribute->getError();
                     }

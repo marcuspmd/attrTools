@@ -7,7 +7,7 @@ use Marcuspmd\AttrTools\Protocols\Validator;
 use Attribute;
 
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
-final class LengthAttrValidator extends BaseValidator implements Validator
+final class LengthValidator extends BaseValidator implements Validator
 {
     public function __construct(
         bool $nullable = false,
@@ -25,11 +25,7 @@ final class LengthAttrValidator extends BaseValidator implements Validator
         );
     }
 
-    /**
-     * @param string $value
-     * @return bool
-     */
-    public function validate($value): bool
+    public function isValid($value): bool
     {
         $value = $this->getValue($value);
 

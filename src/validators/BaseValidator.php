@@ -4,6 +4,8 @@ namespace Marcuspmd\AttrTools\Validators;
 
 abstract class BaseValidator
 {
+    public $context;
+
     public function __construct(
         public ?string $field = null,
         public ?string $message = null,
@@ -16,6 +18,7 @@ abstract class BaseValidator
     public function getValue($value)
     {
         if ($this->emptyToNull && empty($value)) {
+            $this->nullable = true;
             return null;
         }
 
@@ -29,6 +32,10 @@ abstract class BaseValidator
 
         if (is_object($value)) {
             $value = json_decode(json_encode($value), true);
+        }
+
+        if (strstr($this->field, '.') === false) {
+            return $value;
         }
 
         $multArray = explode('.', $this->field);

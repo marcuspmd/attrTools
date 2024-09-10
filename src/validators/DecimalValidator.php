@@ -7,7 +7,7 @@ use Marcuspmd\AttrTools\Protocols\Validator;
 use Attribute;
 
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
-final class DecimalAttrValidator extends BaseValidator implements Validator
+final class DecimalValidator extends BaseValidator implements Validator
 {
     public function __construct(
         ?string $field = null,
@@ -18,17 +18,18 @@ final class DecimalAttrValidator extends BaseValidator implements Validator
         public ?int $scale = null,
         public ?int $precision = null,
     ) {
-        if ($message === null) {
-            $message = 'Campo {{field}} é obrigatório.';
-        }
-        parent::__construct($field, $message, $nullable);
+        parent::__construct(
+            field: $field,
+            message: $message,
+            nullable: $nullable,
+        );
     }
 
     /**
      * @param string|array $value
      * @return bool
      */
-    public function validate($value): bool
+    public function isValid($value): bool
     {
         if ($this->nullable && $value === null) {
             return true;

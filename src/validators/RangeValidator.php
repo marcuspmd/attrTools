@@ -7,7 +7,7 @@ use Marcuspmd\AttrTools\Protocols\Validator;
 use Attribute;
 
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
-final class RangeAttrValidator extends BaseValidator implements Validator
+final class RangeValidator extends BaseValidator implements Validator
 {
     public function __construct(
         ?string $field = null,
@@ -16,10 +16,14 @@ final class RangeAttrValidator extends BaseValidator implements Validator
         public readonly ?float $min = null,
         public readonly ?float $max = null
     ) {
-        parent::__construct($field, $message, $nullable);
+        parent::__construct(
+            field: $field,
+            message: $message,
+            nullable: $nullable,
+        );
     }
 
-    public function validate($value): bool
+    public function isValid($value): bool
     {
         if ($this->nullable && $value === null) {
             return true;
@@ -31,13 +35,19 @@ final class RangeAttrValidator extends BaseValidator implements Validator
             return false;
         }
 
-        if ($this->min !== null && $value < $this->min) {
+        if ($this->min === null || $this->max === null) {
+            $this->errorCode = 4;
+
+            return false;
+        }
+
+        if ($value < $this->min) {
             $this->errorCode = 2;
 
             return false;
         }
 
-        if ($this->max !== null && $value > $this->max) {
+        if ($value > $this->max) {
             $this->errorCode = 3;
 
             return false;
@@ -52,6 +62,7 @@ final class RangeAttrValidator extends BaseValidator implements Validator
             1 => 'Campo: {{field}} deve ser um número.',
             2 => 'Campo: {{field}} deve ser maior ou igual a {{min}}.',
             3 => 'Campo: {{field}} deve ser menor ou igual a {{max}}.',
+            4 => 'O parametro min e max são obrigatórios.',
             default => 'Campo: {{field}} está inválido.',
         };
     }

@@ -17,7 +17,11 @@ final class DateRangeValidator extends BaseValidator implements Validator
         private readonly ?DateTime $minDate = null,
         private readonly ?DateTime $maxDate = null
     ) {
-        parent::__construct($field, $message, $nullable);
+        parent::__construct(
+            field: $field,
+            message: $message,
+            nullable: $nullable,
+        );
     }
 
     public function isValid($value): bool
@@ -51,8 +55,8 @@ final class DateRangeValidator extends BaseValidator implements Validator
     {
         return match ($this->errorCode) {
             1 => 'Campo: {{field}} deve ser uma data válida.',
-            2 => 'Campo: {{field}} deve ser maior ou igual a {{minDate}}.',
-            3 => 'Campo: {{field}} deve ser menor ou igual a {{maxDate}}.',
+            2 => 'Campo: {{field}} deve ser maior ou igual a '.$this->minDate->format('Y-m-d').'.',
+            3 => 'Campo: {{field}} deve ser menor ou igual a '.$this->maxDate->format('Y-m-d').'.',
             default => 'Campo: {{field}} está inválido.',
         };
     }

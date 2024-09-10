@@ -7,7 +7,7 @@ use Marcuspmd\AttrTools\Protocols\Validator;
 use Attribute;
 
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
-final class IpAttrValidator extends BaseValidator implements Validator
+final class UuidValidator extends BaseValidator implements Validator
 {
     public function __construct(
         ?string $field = null,
@@ -17,13 +17,17 @@ final class IpAttrValidator extends BaseValidator implements Validator
         parent::__construct($field, $message, $nullable);
     }
 
-    public function validate($value): bool
+    public function isValid($value): bool
     {
         if ($this->nullable && $value === null) {
             return true;
         }
 
-        if (!filter_var($value, FILTER_VALIDATE_IP)) {
+        if ($value === null) {
+            return false;
+        }
+
+        if (!is_string($value) || !preg_match('/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/', $value)) {
             $this->errorCode = 1;
 
             return false;
@@ -35,7 +39,7 @@ final class IpAttrValidator extends BaseValidator implements Validator
     protected function setMessage(): string
     {
         return match ($this->errorCode) {
-            1 => 'Campo: {{field}} deve ser um endereço IP válido.',
+            1 => 'Campo: {{field}} deve ser um UUID válido.',
             default => 'Campo: {{field}} está inválido.',
         };
     }

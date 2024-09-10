@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Helpers\Validators;
-
+namespace Marcuspmd\AttrTools\Validators;
 
 use Marcuspmd\AttrTools\Protocols\Validator;
 use Attribute;
@@ -13,17 +12,13 @@ class IsNotNullValidator extends BaseValidator implements Validator
         ?string $field = null,
         ?string $message = null
     ) {
-        if ($message === null) {
-            $message = 'Campo: {{field}} não pode ser nulo.';
-        }
-        parent::__construct($field, $message);
+        parent::__construct(
+            field: $field,
+            message: $message,
+        );
     }
 
-    /**
-     * @param mixed $value
-     * @return bool
-     */
-    public function validate($value): bool
+    public function isValid($value): bool
     {
         $value = $this->getValue($value);
 

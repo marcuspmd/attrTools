@@ -7,26 +7,32 @@ use Marcuspmd\AttrTools\Protocols\Validator;
 use Attribute;
 
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
-final class InArrayAttrValidator extends BaseValidator implements Validator
+final class UrlValidator extends BaseValidator implements Validator
 {
     public function __construct(
         ?string $field = null,
         ?string $message = null,
-        ?bool $nullable = false,
-        private readonly array $allowedValues = []
+        ?bool $nullable = false
     ) {
-        parent::__construct($field, $message, $nullable);
+        parent::__construct(
+            field: $field,
+            message: $message,
+            nullable: $nullable,
+        );
     }
 
-    public function validate($value): bool
+    public function isValid($value): bool
     {
         if ($this->nullable && $value === null) {
             return true;
         }
 
-        if (!in_array($value, $this->allowedValues, true)) {
-            $this->errorCode = 1;
+        if ($value === null) {
+            return false;
+        }
 
+        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+            $this->errorCode = 1;
             return false;
         }
 
@@ -36,7 +42,7 @@ final class InArrayAttrValidator extends BaseValidator implements Validator
     protected function setMessage(): string
     {
         return match ($this->errorCode) {
-            1 => 'Campo: {{field}} deve ser um dos seguintes valores: '.implode(', ', $this->allowedValues).'.',
+            1 => 'Campo: {{field}} deve ser uma URL válida.',
             default => 'Campo: {{field}} está inválido.',
         };
     }

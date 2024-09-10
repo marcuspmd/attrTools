@@ -6,25 +6,33 @@ namespace Marcuspmd\AttrTools\Validators;
 use Marcuspmd\AttrTools\Protocols\Validator;
 use Attribute;
 
+/**
+ * Como usar:
+ * #[InstanceAttrValidator(instance: instance::class)]
+ */
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
-final class UniqueAttrValidator extends BaseValidator implements Validator
+final class InstanceValidator extends BaseValidator implements Validator
 {
     public function __construct(
+        private string $instance,
         ?string $field = null,
         ?string $message = null,
-        ?bool $nullable = false,
-        private readonly ?callable $callback = null
+        ?bool $nullable = false
     ) {
-        parent::__construct($field, $message, $nullable);
+        parent::__construct(
+            field: $field,
+            message: $message,
+            nullable: $nullable,
+        );
     }
 
-    public function validate($value): bool
+    public function isValid($value): bool
     {
         if ($this->nullable && $value === null) {
             return true;
         }
 
-        if ($this->callback && ($this->callback)($value)) {
+        if (!($value instanceof $this->instance)) {
             $this->errorCode = 1;
 
             return false;
@@ -36,7 +44,7 @@ final class UniqueAttrValidator extends BaseValidator implements Validator
     protected function setMessage(): string
     {
         return match ($this->errorCode) {
-            1 => 'Campo: {{field}} deve ser único.',
+            1 => "Campo: {{field}} deve ser uma instância de {$this->instance}.",
             default => 'Campo: {{field}} está inválido.',
         };
     }
