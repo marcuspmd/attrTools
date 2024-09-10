@@ -1,0 +1,77 @@
+# Documentation
+
+The `attrTools` library offers a collection of validators to enforce rules on your data models.
+
+These validators can be used as attributes in PHP classes.
+
+## Installation
+
+You can install the package via composer:
+
+```bash
+composer require marcuspmd/attr-tools
+```
+
+## Usage
+
+To use the validators, you need to create a new instance of the `AttrValidator` class and pass the object you want to validate.
+
+```php
+$validator = new AttrValidator();
+
+$class = new class {
+    #[RequiredValidator()]
+    public string $field = 'testString';
+};
+
+$validator->isValid($class);
+```
+
+## Validators
+
+The following validators are available:
+
+### Common Validators
+
+- BooleanValidator [link](#booleanvalidator)
+- EmailValidator [link](#emailvalidator)
+- EnumValidator [link](#enumvalidator)
+- UrlValidator [link](#urlvalidator)
+- IpValidator [link](#ipvalidator)
+- UuidValidator [link](#uuidvalidator)
+- IsNotNullValidator [link](#isnotnullvalidator)
+- InstanceValidator [link](#instancevalidator)
+- EqualsValidator [link](#equalsvalidator)
+- IsNotEqualsValidator [link](#isnotequalsvalidator)
+- RequiredValidator [link](#requiredvalidator)
+- CustomFunctionValidator [link](#customfunctionvalidator)
+
+### Array Validators
+
+- CountValidator [link](#countvalidator)
+- InArrayValidator [link](#inarrayvalidator)
+
+### Date Validators
+
+- DateTimeValidator [link](#datetimevalidator)
+- DateRangeValidator [link](#daterangevalidator)
+
+### Numeric Validators
+
+- DecimalValidator [link](#decimalvalidator)
+- NumericValidator [link](#numericvalidator)
+- RangeValidator [link](#rangevalidator)
+- GreaterThanValidator [link](#greaterthanvalidator)
+- GreaterThanOrEqualValidator [link](#greaterthanorequalvalidator)
+- LessThanValidator [link](#lessthanvalidator)
+- LessThanOrEqualValidator [link](#lessthanorequalvalidator)
+
+### String Validators
+
+- LengthValidator [link](#lengthvalidator)
+- RegexValidator [link](#regexvalidator)
+
+### Brazilian Validators
+
+- CnpjValidator [link](#cnpjvalidator)
+- CpfValidator [link](#cpfvalidator)
