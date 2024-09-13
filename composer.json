@@ -1,5 +1,5 @@
 {
-    "name": "marcusp/attr_tools",
+    "name": "marcuspmd/attr_tools",
     "type": "library",
     "require": {
         "php": ">=8.0"
