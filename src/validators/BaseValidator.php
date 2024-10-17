@@ -22,8 +22,28 @@ abstract class BaseValidator
             return null;
         }
 
+        if ($value === null) {
+            return null;
+        }
+
         if (is_string($value)) {
             return trim($value);
+        }
+
+        if (is_numeric($value)) {
+            return $value;
+        }
+
+        if (is_bool($value)) {
+            return $value;
+        }
+
+        if ($this->field === null) {
+            return $value;
+        }
+
+        if (strstr($this->field, '.') === false) {
+            return $value;
         }
 
         if (!is_array($value) && !is_object($value)) {
@@ -32,10 +52,6 @@ abstract class BaseValidator
 
         if (is_object($value)) {
             $value = json_decode(json_encode($value), true);
-        }
-
-        if (strstr($this->field, '.') === false) {
-            return $value;
         }
 
         $multArray = explode('.', $this->field);

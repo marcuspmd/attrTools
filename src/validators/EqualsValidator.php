@@ -15,6 +15,7 @@ class EqualsValidator extends BaseValidator implements Validator
         ?string $field = null,
         ?string $message = null,
         ?bool $nullable = false,
+        ?bool $emptyToNull = false,
         private readonly ?string $valueToCompare = null,
         private readonly ?string $fieldToCompare = null,
         private readonly ?string $type = null,
@@ -23,11 +24,14 @@ class EqualsValidator extends BaseValidator implements Validator
             field: $field,
             message: $message,
             nullable: $nullable,
+            emptyToNull: $emptyToNull
         );
     }
 
     public function isValid($value): bool
     {
+        $value = $this->getValue($value);
+
         if ($this->nullable && $value === null) {
             return true;
         }

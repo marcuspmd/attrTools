@@ -11,13 +11,20 @@ final class UuidValidator extends BaseValidator implements Validator
     public function __construct(
         ?string $field = null,
         ?string $message = null,
-        ?bool $nullable = false
+        ?bool $nullable = false,
+        ?bool $emptyToNull = false,
     ) {
-        parent::__construct($field, $message, $nullable);
+        parent::__construct(
+            field: $field,
+            message: $message,
+            nullable: $nullable,
+            emptyToNull: $emptyToNull
+        );
     }
 
     public function isValid($value): bool
     {
+        $value = $this->getValue($value);
         if ($this->nullable && $value === null) {
             return true;
         }

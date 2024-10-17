@@ -26,12 +26,14 @@ final class CustomFunctionValidator extends BaseValidator implements Validator
         ?string $field = null,
         ?string $message = null,
         ?bool $nullable = false,
+        ?bool $emptyToNull = false,
         ?callable $callback = null
     ) {
         parent::__construct(
             field: $field,
             message: $message,
             nullable: $nullable,
+            emptyToNull: $emptyToNull
         );
         $this->callback = $callback;
     }
@@ -41,6 +43,8 @@ final class CustomFunctionValidator extends BaseValidator implements Validator
      */
     public function isValid($value): bool
     {
+        $value = $this->getValue($value);
+
         if ($this->nullable && $value === null) {
             return true;
         }

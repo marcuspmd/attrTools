@@ -9,8 +9,8 @@ use Attribute;
 final class LengthValidator extends BaseValidator implements Validator
 {
     public function __construct(
-        bool $nullable = false,
-        $emptyToNull = false,
+        ?bool $nullable = false,
+        ?bool $emptyToNull = false,
         ?string $field = null,
         ?string $message = null,
         public readonly ?int $min = null,

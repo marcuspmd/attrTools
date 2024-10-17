@@ -14,16 +14,20 @@ final class EnumValidator extends BaseValidator implements Validator
         ?string $field = null,
         ?string $message = null,
         bool $nullable = false,
+        ?bool $emptyToNull = false,
     ) {
         parent::__construct(
             field: $field,
             message: $message,
             nullable: $nullable,
+            emptyToNull: $emptyToNull
         );
     }
 
     public function isValid($value): bool
     {
+        $value = $this->getValue($value);
+
         if ($this->nullable && $value === null) {
             return true;
         }
@@ -41,7 +45,7 @@ final class EnumValidator extends BaseValidator implements Validator
 
         $cases = $this->enum::cases();
         foreach ($cases as $case) {
-            if ($case->value === $value) {
+            if (mb_strtolower($case->value) === mb_strtolower($value)) {
                 return true;
             }
         }

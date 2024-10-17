@@ -17,6 +17,7 @@ final class DateTimeValidator extends BaseValidator implements Validator
         ?string $field = null,
         ?string $message = null,
         ?bool $nullable = false,
+        ?bool $emptyToNull = false,
         private $min = null,
         private $max = null,
     ) {
@@ -24,6 +25,7 @@ final class DateTimeValidator extends BaseValidator implements Validator
             field: $field,
             message: $message,
             nullable: $nullable,
+            emptyToNull: $emptyToNull
         );
 
         $this->resolvedMin = $this->resolveDateTime($this->min);
@@ -36,6 +38,8 @@ final class DateTimeValidator extends BaseValidator implements Validator
      */
     public function isValid($value): bool
     {
+        $value = $this->getValue($value);
+
         if ($this->nullable && $value === null) {
             return true;
         }

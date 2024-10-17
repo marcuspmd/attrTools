@@ -15,7 +15,8 @@ final class InstanceValidator extends BaseValidator implements Validator
         private string $instance,
         ?string $field = null,
         ?string $message = null,
-        ?bool $nullable = false
+        ?bool $nullable = false,
+        ?bool $emptyToNull = false,
     ) {
         if (!class_exists($this->instance)) {
             throw new \InvalidArgumentException("A classe {$this->instance} não existe.");
@@ -30,6 +31,8 @@ final class InstanceValidator extends BaseValidator implements Validator
 
     public function isValid($value): bool
     {
+        $value = $this->getValue($value);
+
         if ($this->nullable && $value === null) {
             return true;
         }
