@@ -4,12 +4,8 @@ namespace Marcuspmd\AttrTools\Validators;
 
 use Marcuspmd\AttrTools\Protocols\Validator;
 use Attribute;
-use ReflectionClass;
+use ReflectionEnum;
 
-/**
- * Como usar:
- * #[EnumValidator(enum: AccountingTypeEnum::class, nullable: false)]
- */
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
 final class EnumValidator extends BaseValidator implements Validator
 {
@@ -37,21 +33,28 @@ final class EnumValidator extends BaseValidator implements Validator
             return false;
         }
 
-        $cases = array_map(fn($case) => $case->value, $this->enum::cases());
-
-        if (!in_array($value, $cases, true)) {
-            $this->errorCode = 2;
+        $reflectionEnum = new ReflectionEnum($this->enum);
+        if (!$reflectionEnum->isEnum()) {
+            $this->errorCode = 1;
             return false;
         }
 
-        return true;
+        $cases = $this->enum::cases();
+        foreach ($cases as $case) {
+            if ($case->value === $value) {
+                return true;
+            }
+        }
+
+        $this->errorCode = 2;
+        return false;
     }
 
     protected function setMessage(): string
     {
         return match ($this->errorCode) {
-            1 => 'A classe '.$this->enum.' não é um enum válido.',
-            2 => 'Campo: {{field}} deve ser um valor válido do enum '.$this->enum.'.',
+            1 => 'A classe ' . $this->enum . ' não é um enum válido.',
+            2 => 'Campo: {{field}} deve ser um valor válido do enum ' . $this->enum . '.',
             default => 'Campo: {{field}} está inválido.',
         };
     }

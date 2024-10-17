@@ -62,8 +62,8 @@ class EqualsValidator extends BaseValidator implements Validator
     {
         return match ($this->errorCode) {
             1 => 'Campo: {{field}} não corresponde ao valor esperado.',
-            2 => 'Campo: {{field}} deve ser do tipo '.$this->type.'.',
-            3 => 'Campo: '.$this->fieldToCompare.' não encontrado na classe.',
+            2 => 'Campo: {{field}} deve ser do tipo ' . $this->type . '.',
+            3 => 'Campo: ' . $this->fieldToCompare . ' não encontrado na classe.',
             default => 'Campo: {{field}} está inválido.',
         };
     }

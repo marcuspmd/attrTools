@@ -39,7 +39,7 @@ final class InArrayValidator extends BaseValidator implements Validator
     protected function setMessage(): string
     {
         return match ($this->errorCode) {
-            1 => 'Campo: {{field}} deve ser um dos seguintes valores: '.implode(', ', $this->allowedValues).'.',
+            1 => 'Campo: {{field}} deve ser um dos seguintes valores: ' . implode(', ', $this->allowedValues) . '.',
             default => 'Campo: {{field}} está inválido.',
         };
     }

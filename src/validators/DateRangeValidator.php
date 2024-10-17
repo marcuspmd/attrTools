@@ -2,7 +2,6 @@
 
 namespace Marcuspmd\AttrTools\Validators;
 
-
 use Marcuspmd\AttrTools\Protocols\Validator;
 use Attribute;
 use DateTime;
@@ -55,8 +54,8 @@ final class DateRangeValidator extends BaseValidator implements Validator
     {
         return match ($this->errorCode) {
             1 => 'Campo: {{field}} deve ser uma data válida.',
-            2 => 'Campo: {{field}} deve ser maior ou igual a '.$this->minDate->format('Y-m-d').'.',
-            3 => 'Campo: {{field}} deve ser menor ou igual a '.$this->maxDate->format('Y-m-d').'.',
+            2 => 'Campo: {{field}} deve ser maior ou igual a ' . $this->minDate->format('Y-m-d') . '.',
+            3 => 'Campo: {{field}} deve ser menor ou igual a ' . $this->maxDate->format('Y-m-d') . '.',
             default => 'Campo: {{field}} está inválido.',
         };
     }

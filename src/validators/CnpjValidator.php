@@ -2,7 +2,6 @@
 
 namespace Marcuspmd\AttrTools\Validators;
 
-
 use Attribute;
 use Marcuspmd\AttrTools\Protocols\Validator;
 

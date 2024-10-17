@@ -23,10 +23,6 @@ final class BooleanValidator extends BaseValidator implements Validator
         );
     }
 
-    /**
-     * @param string|array $value
-     * @return bool
-     */
     public function isValid($value): bool
     {
         if ($this->nullable && $value === null) {

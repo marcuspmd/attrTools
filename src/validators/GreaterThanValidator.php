@@ -60,8 +60,8 @@ class GreaterThanValidator extends BaseValidator implements Validator
     protected function setMessage(): string
     {
         return match ($this->errorCode) {
-            1 => 'Campo: '.$this->fieldToCompare.' não encontrado na classe.',
-            default => 'Campo: {{field}} deve ser maior ou igual a '.$this->valueToCompare.'.',
+            1 => 'Campo: ' . $this->fieldToCompare . ' não encontrado na classe.',
+            default => 'Campo: {{field}} deve ser maior ou igual a ' . $this->valueToCompare . '.',
         };
     }
 

@@ -2,7 +2,6 @@
 
 namespace Marcuspmd\AttrTools\Validators;
 
-
 use Marcuspmd\AttrTools\Protocols\Validator;
 use Attribute;
 
@@ -31,8 +30,29 @@ final class RequiredValidator extends BaseValidator implements Validator
             return true;
         }
 
-        return !empty($value);
+        if (is_string($value)) {
+            return strlen($value) > 0;
+        }
+
+        if (is_numeric($value)) {
+            return true;
+        }
+
+        if (is_array($value)) {
+            return count($value) > 0;
+        }
+
+        if (is_bool($value)) {
+            return true;
+        }
+
+        if (is_object($value)) {
+            return $value !== null;
+        }
+
+        return $value !== null;
     }
+
 
     protected function setMessage(): string
     {

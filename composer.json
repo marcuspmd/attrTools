@@ -24,5 +24,11 @@
             "name": "Marcus Paulo M Dias",
             "email": "marcusmazzon@gmail.com"
         }
-    ]
+    ],
+    "scripts": {
+        "test": "phpunit",
+        "phpcs": "phpcs --standard=PSR12 src/",
+        "phpcbf": "phpcbf --standard=PSR12 src/",
+        "phpmd": "phpmd src/ text cleancode,codesize,controversial,design,naming,unusedcode"
+    }
 }

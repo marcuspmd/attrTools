@@ -62,8 +62,8 @@ final class DateTimeValidator extends BaseValidator implements Validator
     {
         return match ($this->errorCode) {
             1 => 'Campo: {{field}} não é uma data válida.',
-            2 => 'Campo: {{field}} deve ser maior ou igual a '.$this->resolvedMin->format('Y-m-d').'.',
-            3 => 'Campo: {{field}} deve ser menor ou igual a '.$this->resolvedMax->format('Y-m-d').'.',
+            2 => 'Campo: {{field}} deve ser maior ou igual a ' . $this->resolvedMin->format('Y-m-d') . '.',
+            3 => 'Campo: {{field}} deve ser menor ou igual a ' . $this->resolvedMax->format('Y-m-d') . '.',
             default => 'Campo: {{field}} está inválido.',
         };
     }

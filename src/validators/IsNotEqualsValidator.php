@@ -45,8 +45,8 @@ class IsNotEqualsValidator extends BaseValidator implements Validator
     protected function setMessage(): string
     {
         return match ($this->errorCode) {
-            1 => 'Campo: '.$this->fieldToCompare.' não encontrado na classe.',
-            default => 'Campo: {{field}} deve ser diferente de '.$this->valueToCompare.'.',
+            1 => 'Campo: ' . $this->fieldToCompare . ' não encontrado na classe.',
+            default => 'Campo: {{field}} deve ser diferente de ' . $this->valueToCompare . '.',
         };
     }
 

@@ -70,7 +70,7 @@ abstract class BaseValidator
             return $this->parseMessage($this->message);
         }
 
-        return 'Field " '.$this->field.' " inválido.';
+        return 'Field " ' . $this->field . ' " inválido.';
     }
 
     public function getErrors(): array
@@ -91,7 +91,7 @@ abstract class BaseValidator
         }
 
         foreach ($matches[1] as $match) {
-            $auxMatch = '{{'.$match.'}}';
+            $auxMatch = '{{' . $match . '}}';
             $auxValue = $this->{$match} ?? '';
             $message = str_replace($auxMatch, $auxValue, $message);
         }

@@ -1,14 +1,12 @@
 <?php
-
 namespace Marcuspmd\AttrTools\Validators;
-
 
 use Marcuspmd\AttrTools\Protocols\Validator;
 use Attribute;
 
 /**
  * Como usar:
- * #[InstanceAttrValidator(instance: instance::class)]
+ * #[InstanceValidator(instance: NomeDaClasse::class)]
  */
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
 final class InstanceValidator extends BaseValidator implements Validator
@@ -19,9 +17,13 @@ final class InstanceValidator extends BaseValidator implements Validator
         ?string $message = null,
         ?bool $nullable = false
     ) {
+        if (!class_exists($this->instance)) {
+            throw new \InvalidArgumentException("A classe {$this->instance} não existe.");
+        }
+
         parent::__construct(
             field: $field,
-            message: $message,
+            message: $message ?? "Campo: {{field}} deve ser uma instância de {$this->instance}.",
             nullable: $nullable,
         );
     }
@@ -34,7 +36,6 @@ final class InstanceValidator extends BaseValidator implements Validator
 
         if (!($value instanceof $this->instance)) {
             $this->errorCode = 1;
-
             return false;
         }
 
