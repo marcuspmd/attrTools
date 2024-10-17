@@ -1,6 +1,7 @@
 {
     "name": "marcuspmd/attr_tools",
     "type": "library",
+    "license": "MIT",
     "require": {
         "php": ">=8.0"
     },
