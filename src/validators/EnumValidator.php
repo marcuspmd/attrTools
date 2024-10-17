@@ -43,6 +43,10 @@ final class EnumValidator extends BaseValidator implements Validator
             return false;
         }
 
+        if ($value instanceof $this->enum) {
+            return true;
+        }
+
         $cases = $this->enum::cases();
         foreach ($cases as $case) {
             if ($case->value === $value) {
