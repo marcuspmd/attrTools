@@ -11,6 +11,7 @@ final class BooleanValidator extends BaseValidator implements Validator
     public function __construct(
         ?string $field = null,
         ?string $message = null,
+        ?bool $emptyToNull = false,
         ?bool $nullable = false,
     ) {
         if ($message === null) {
@@ -19,16 +20,27 @@ final class BooleanValidator extends BaseValidator implements Validator
         parent::__construct(
             field: $field,
             message: $message,
+            emptyToNull: $emptyToNull,
             nullable: $nullable,
         );
     }
 
     public function isValid($value): bool
     {
+        if (is_bool($value)) {
+            return true;
+        }
+
+        $value = $this->getValue($value);
+
+        if (is_array($value) || is_object($value)) {
+            return false;
+        }
+
         if ($this->nullable && $value === null) {
             return true;
         }
 
-        return is_bool($value);
+        return false;
     }
 }

@@ -11,11 +11,13 @@ final class CpfValidator extends BaseValidator implements Validator
     public function __construct(
         ?string $field = null,
         ?string $message = null,
+        ?bool $emptyToNull = false,
         ?bool $nullable = false,
     ) {
         parent::__construct(
             field: $field,
             message: $message,
+            emptyToNull: $emptyToNull,
             nullable: $nullable,
         );
     }
@@ -26,6 +28,8 @@ final class CpfValidator extends BaseValidator implements Validator
      */
     public function isValid($value): bool
     {
+        $value = $this->getValue($value);
+
         if ($this->nullable && $value === null) {
             return true;
         }

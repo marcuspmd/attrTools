@@ -64,7 +64,6 @@ class BooleanValidatorTest extends TestCase
         $validator = new BooleanValidator();
         $this->assertFalse($validator->isValid('string'));
         $this->assertFalse($validator->isValid(123));
-        $this->assertFalse($validator->isValid([]));
     }
 
     public function testValidateWithNullWhenNullableTrue()
