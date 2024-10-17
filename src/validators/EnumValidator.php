@@ -45,7 +45,7 @@ final class EnumValidator extends BaseValidator implements Validator
 
         $cases = $this->enum::cases();
         foreach ($cases as $case) {
-            if (mb_strtolower($case->value) === mb_strtolower($value)) {
+            if ($case->value === $value) {
                 return true;
             }
         }
