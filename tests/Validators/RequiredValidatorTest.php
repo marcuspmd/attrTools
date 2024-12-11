@@ -99,4 +99,22 @@ class RequiredValidatorTest extends TestCase
         $this->assertFalse($validator->isValid($class));
         $this->assertEquals('Campo field é obrigatório.', $validator->getError());
     }
+
+    public function testNotValidateUsingWhen()
+    {
+        $validator = new AttrValidator();
+        $class = new class {
+            #[RequiredValidator(when: 'alwaysFalse')]
+            public ?string $field = null;
+
+            public function alwaysFalse(): bool
+            {
+                return false;
+            }
+
+        };
+
+
+        $this->assertTrue($validator->isValid($class));
+    }
 }

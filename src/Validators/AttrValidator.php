@@ -54,9 +54,10 @@ final class AttrValidator implements Validator
                         $validationAttribute->context = $target;
                     }
 
-                    if ($validationAttribute->isValid($reflectionProperty->getValue($target)) == false) {
+                    if ($validationAttribute->__call('isValid', [$reflectionProperty->getValue($target)]) == false) {
                         $this->errors[] = $validationAttribute->getError();
                     }
+
                 } catch (Exception $e) {
                     $this->errors[] = $e->getMessage();
                 }

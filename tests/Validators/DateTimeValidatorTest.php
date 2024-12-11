@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Marcuspmd\AttrTools\Validators\AttrValidator;
 use Marcuspmd\AttrTools\Validators\DateTimeValidator;
 use PHPUnit\Framework\TestCase;
-use DateTime;
 
 class DateTimeValidatorTest extends TestCase
 {
