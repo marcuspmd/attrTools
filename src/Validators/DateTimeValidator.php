@@ -13,31 +13,15 @@ final class DateTimeValidator extends BaseValidator implements Validator
     private ?DateTime $resolvedMin = null;
     private ?DateTime $resolvedMax = null;
 
-    public function __construct(
-        ?string $field = null,
-        ?string $message = null,
-        ?bool $nullable = false,
-        ?bool $emptyToNull = false,
-        private $min = null,
-        private $max = null,
-    ) {
-        parent::__construct(
-            field: $field,
-            message: $message,
-            nullable: $nullable,
-            emptyToNull: $emptyToNull
-        );
-
-        $this->resolvedMin = $this->resolveDateTime($this->min);
-        $this->resolvedMax = $this->resolveDateTime($this->max);
-    }
-
     /**
      * @param DateTime|null $value
      * @return bool
      */
     public function isValid($value): bool
     {
+        $this->resolvedMin = $this->resolveDateTime($this->min);
+        $this->resolvedMax = $this->resolveDateTime($this->max);
+
         $value = $this->getValue($value);
 
         if ($this->nullable && $value === null) {

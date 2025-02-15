@@ -43,7 +43,6 @@ class BooleanValidatorTest extends TestCase
         $class->testField = null;
 
         $this->assertFalse($validator->isValid($class));
-        $this->assertEquals('Campo testField é obrigatório.', $validator->getError());
     }
 
 

@@ -8,20 +8,6 @@ use Attribute;
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
 final class RegexValidator extends BaseValidator implements Validator
 {
-    public function __construct(
-        ?string $field = null,
-        ?string $message = null,
-        ?bool $nullable = false,
-        ?bool $emptyToNull = false,
-        private readonly ?string $pattern = null
-    ) {
-        parent::__construct(
-            field: $field,
-            message: $message,
-            emptyToNull: $emptyToNull,
-            nullable: $nullable
-        );
-    }
 
     public function isValid($value): bool
     {

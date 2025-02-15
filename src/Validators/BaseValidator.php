@@ -3,6 +3,7 @@
 namespace Marcuspmd\AttrTools\Validators;
 
 use Closure;
+use DateTime;
 
 /**
  * Classe abstrata BaseValidator
@@ -44,7 +45,21 @@ abstract class BaseValidator
         public ?bool $nullable = false,
         public ?bool $emptyToNull = false,
         public ?int $errorCode = null,
-        public ?string $when = null
+        public ?string $when = null,
+        public mixed $min = null,
+        public mixed $max = null,
+        public mixed $callback = null,
+        public ?DateTime $minDate = null,
+        public ?DateTime $maxDate = null,
+        public ?int $scale = null,
+        public ?int $precision = null,
+        public mixed $pattern = null,
+        public mixed $enum = null,
+        public mixed $valueToCompare = null,
+        public mixed $fieldToCompare = null,
+        public mixed $type = null,
+        public mixed $allowedValues = [],
+        public mixed $instance = null,
     ) {
     }
 

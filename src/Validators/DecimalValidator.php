@@ -8,23 +8,6 @@ use Attribute;
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
 final class DecimalValidator extends BaseValidator implements Validator
 {
-    public function __construct(
-        ?string $field = null,
-        ?string $message = null,
-        ?bool $nullable = false,
-        ?bool $emptyToNull = false,
-        public ?float $min = null,
-        public ?float $max = null,
-        public ?int $scale = null,
-        public ?int $precision = null,
-    ) {
-        parent::__construct(
-            field: $field,
-            message: $message,
-            nullable: $nullable,
-            emptyToNull: $emptyToNull
-        );
-    }
 
     /**
      * @param string|array $value

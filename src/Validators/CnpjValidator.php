@@ -8,20 +8,6 @@ use Marcuspmd\AttrTools\Protocols\Validator;
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
 final class CnpjValidator extends BaseValidator implements Validator
 {
-    public function __construct(
-        ?string $field = null,
-        ?string $message = null,
-        ?bool $emptyToNull = false,
-        ?bool $nullable = false,
-    ) {
-        parent::__construct(
-            field: $field,
-            message: $message,
-            emptyToNull: $emptyToNull,
-            nullable: $nullable,
-        );
-    }
-
     /**
      * @param string $value
      * @return bool

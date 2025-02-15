@@ -11,9 +11,9 @@ class CustomFunctionClass
     #[CustomFunctionValidator(callback: [self::class, 'validateStatic'])]
     public ?string $customField = 'example';
 
-    public static function validateStatic($value): bool
+    public static function validateStatic($objectClass): bool
     {
-        return strlen($value) > 5;
+        return strlen($objectClass->customField) > 5;
     }
 
     public function validateInstance($value): bool

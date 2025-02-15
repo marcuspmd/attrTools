@@ -11,22 +11,6 @@ use ReflectionException;
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
 class EqualsValidator extends BaseValidator implements Validator
 {
-    public function __construct(
-        ?string $field = null,
-        ?string $message = null,
-        ?bool $nullable = false,
-        ?bool $emptyToNull = false,
-        private readonly ?string $valueToCompare = null,
-        private readonly ?string $fieldToCompare = null,
-        private readonly ?string $type = null,
-    ) {
-        parent::__construct(
-            field: $field,
-            message: $message,
-            nullable: $nullable,
-            emptyToNull: $emptyToNull
-        );
-    }
 
     public function isValid($value): bool
     {

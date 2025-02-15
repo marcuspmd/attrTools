@@ -8,21 +8,6 @@ use Attribute;
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
 final class NumericValidator extends BaseValidator implements Validator
 {
-    public function __construct(
-        ?string $field = null,
-        ?string $message = null,
-        ?bool $nullable = false,
-        ?bool $emptyToNull = false,
-        public ?float $min = null,
-        public ?float $max = null,
-    ) {
-        parent::__construct(
-            field: $field,
-            message: $message,
-            nullable: $nullable,
-            emptyToNull: $emptyToNull
-        );
-    }
 
     /**
      * @param string|array $value

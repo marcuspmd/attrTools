@@ -20,24 +20,6 @@ use Attribute;
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
 final class CustomFunctionValidator extends BaseValidator implements Validator
 {
-    private $callback;
-
-    public function __construct(
-        ?string $field = null,
-        ?string $message = null,
-        ?bool $nullable = false,
-        ?bool $emptyToNull = false,
-        ?callable $callback = null
-    ) {
-        parent::__construct(
-            field: $field,
-            message: $message,
-            nullable: $nullable,
-            emptyToNull: $emptyToNull
-        );
-        $this->callback = $callback;
-    }
-
     /**
      * @return bool
      */
@@ -55,7 +37,9 @@ final class CustomFunctionValidator extends BaseValidator implements Validator
             return false;
         }
 
-        $result = call_user_func($this->callback, $value);
+        // Context é o valor da classe, incluindo todas propriedades e métodos
+        $context = $this->context ?? $value;
+        $result = call_user_func($this->callback, $context);
 
         if ($result === false) {
             $this->errorCode = 1;

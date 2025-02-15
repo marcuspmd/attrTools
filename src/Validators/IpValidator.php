@@ -15,23 +15,9 @@ enum IpType: string
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
 final class IpValidator extends BaseValidator implements Validator
 {
-    public function __construct(
-        ?string $field = null,
-        ?string $message = null,
-        ?bool $nullable = false,
-        ?bool $emptyToNull = false,
-        public readonly ?IpType $type = IpType::BOTH,
-    ) {
-        parent::__construct(
-            field: $field,
-            message: $message,
-            nullable: $nullable,
-            emptyToNull: $emptyToNull
-        );
-    }
-
     public function isValid($value): bool
     {
+        $this->type = IpType::tryFrom(mb_strtolower($this->type ?? IpType::BOTH->value));
         $value = $this->getValue($value);
 
         if ($this->nullable && $value === null) {
