@@ -44,6 +44,10 @@ final class AttrValidator implements Validator
                 try {
                     $validationAttribute = $attribute->newInstance();
 
+                    if (!$validationAttribute instanceof BaseValidator) {
+                        continue;
+                    }
+
                     $arguments = $attribute->getArguments();
 
                     if (!array_key_exists('field', $arguments)) {
