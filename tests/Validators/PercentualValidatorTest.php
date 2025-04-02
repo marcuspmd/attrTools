@@ -46,24 +46,24 @@ class PercentualValidatorTest extends TestCase
     {
         $validator = new AttrValidator();
         $class = new class {
-            #[PercentualValidator()]
+            #[PercentualValidator(min: 0)]
             public float $field = -10;
         };
 
         $this->assertFalse($validator->isValid($class));
-        $this->assertEquals('Campo: field deve ser um valor percentual positivo.', $validator->getError());
+        $this->assertEquals('Campo: field deve ter no mínimo 0.', $validator->getError());
     }
 
     public function testInvalidPercentualAbove100()
     {
         $validator = new AttrValidator();
         $class = new class {
-            #[PercentualValidator()]
+            #[PercentualValidator(max: 100)]
             public float $field = 110;
         };
 
         $this->assertFalse($validator->isValid($class));
-        $this->assertEquals('Campo: field deve ser um valor percentual menor ou igual a 100.', $validator->getError());
+        $this->assertEquals('Campo: field deve ter no máximo 100.', $validator->getError());
     }
 
     public function testInvalidPercentualBelowMinimum()
